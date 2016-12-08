@@ -1,0 +1,149 @@
+{{ use('app/assets/OrderAsset') }}
+{{ register_order_asset() }}
+
+{% if cart.count > 0 %}
+<div class="box border-bottom" style="padding-top:0">
+    <div class="container order-form">
+        <div class="cart-page">
+            <div class="cart-page-top clearfix">
+                <div class="left cart-total">{{ t('app', 'В корзине') }}: <i class="cart-count">{{ cart.count }}</i> {{ t('app', 'товаров') }}</div>
+                <div class="right"><button class="clear-btn clearfull-btn gui-request" data-module="cart" data-data="method=clear">{{ t('app', 'Очистить корзину') }}</button></div>
+            </div>
+            <div class="cart-table tb">
+                {% for product in cart.products %}
+                <div class="tr">
+                    <div class="td"><button class="clear-btn gui-request" data-module="cart" data-data="method=remove&product_id={{ product.id }}"></button></div>
+                    <div class="td cartd-image">
+                        <a href="{{ product.url }}" class="image-box">
+                            <span><img src="{{ product.image }}" alt="" /></span>
+                        </a>
+                    </div>
+                    <div class="td cartd-name"><a href="{{ product.url }}">{{ product.name }}</a></div>
+                    <div class="td cartd-quantity cart-quantity-{{ product.id }}">
+                        <a id="down" class="button">-</a><input
+                                value="{{ product.count }}"
+                                name="count"
+                                type="text"
+                                class="gui-request cart-count-{{ product.id }}"
+                                min="1"
+                                max="{{ product.available }}"
+                                data-module="cart"
+                                data-data="method=change&product_id={{ product.id }}"
+                                data-form=".cart-quantity-{{ product.id }}"
+                                /><a id="up" class="button">+</a>
+                    </div>
+                    <div class="td checkbox">
+                        {% if product.installation > 0 %}
+                        <input type="checkbox" name="installation[{{ product.id }}]" id="checkbox-{{ product.id }}" value="1" checked />
+                        <label for="checkbox-{{ product.id }}">
+                            <span>{{ t('app', 'Электромонтаж') }}*</span>
+                            {{ t('app', 'Стоимость') }}: {{ product.installation }} грн.
+                        </label>
+                        {% endif %}
+                    </div>
+                    <!--div class="td cartd-discont">-15 грн.**</div-->
+                    <div class="td cartd-price"><i class="cart-cost-{{ product.id }}">{{ product.cost }}</i> грн.</div>
+                </div>
+                {% endfor %}
+            </div>
+            <div class="atempt-box">
+                <p>
+                    * {{ t('app', 'Электромонтаж осуществляется только на территории Киева') }}.<br />
+                    ** {{ t('app', 'Скидка с учетом предыдущих покупок на сайте') }}.
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="box">
+    <div class="container order-form">
+        <div class="title"><h2>{{ t('app', 'Оформление заказа') }}</h2></div>
+        <div class="cartinfo form tb">
+            <div class="tr">
+                <div class="td"><label>{{ t('app', 'Имя и фамилия') }}*:</label></div>
+                <div class="td"><input type="text" name="name" value="{{ user.name }}" /></div>
+            </div>
+            <div class="tr">
+                <div class="td"><label>Email*:</label></div>
+                <div class="td"><input type="email" name="email" value="{{ user.email }}" /></div>
+            </div>
+            <div class="tr">
+                <div class="td"><label>Телефон*:</label></div>
+                <div class="td"><input type="tel" name="phone" value="{{ user.phone }}" /></div>
+            </div>
+            <div class="tr">
+                <div class="td"><label>{{ t('app', 'Комментарий') }}:</label></div>
+                <div class="td"><textarea name="comment"></textarea></div>
+            </div>
+            <div class="tr">
+                <div class="td"><label>{{ t('app', 'Способ оплаты') }}*:</label></div>
+                <div class="td">
+                    {% for param in params.payment %}
+                    <div class="radio">
+                        <input name="pay_id" type="radio" value="{{ param.id }}" id="pay-{{ param.id }}" data-cost="{{ param.add_cost }}" />
+                        <label for="pay-{{ param.id }}">
+                            <span>{{ param.name }}</span>{% if param.add_cost > 0 %}{{ t('app', 'Стоимость') }}: {{ param.add_cost }} грн.{% endif %}
+                        </label>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+            <div class="tr">
+                <div class="td"><label>{{ t('app', 'Способ доставки') }}*:</label></div>
+                <div class="td">
+                    {% for param in params.delivery %}
+                    <div class="radio">
+                        <input class="delivery-id" name="delivery_id" type="radio" value="{{ param.id }}" id="radio-{{ param.id }}" data-cost="{{ param.add_cost }}" data-key="{{ param.system_key }}" />
+                        <label for="radio-{{ param.id }}">
+                            <span>{{ param.name }}</span>{% if param.add_cost > 0 %}{{ t('app', 'Стоимость') }}: {{ param.add_cost }} грн.{% endif %}
+                        </label>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+            <div class="tr delivery delivery-self" style="display:none">
+                <div class="td"><label>{{ t('app', 'Адрес самовывоза') }}:</label></div>
+                <div class="td">{{ t('app', 'Киев, ...') }}</div>
+            </div>
+            <div class="tr delivery delivery-courier" style="display:none">
+                <div class="td"><label>{{ t('app', 'Адрес доставки') }}*:</label></div>
+                <div class="td"><input type="text" name="address" value="{{ user.address }}" /></div>
+            </div>
+            <div class="tr delivery delivery-novaposhta" style="display:none">
+                <div class="td"><label for="city_name">{{ t('app', 'Город доставки') }}:</label></div>
+                <div class="td">
+                    <div class="select">
+                        <input name="city_name" id="city-name" value="{{ user.cityName }}" />
+                        <input type="hidden" name="city_id" id="city-id" value="{{ user.city_id }}" />
+                    </div>
+                    <script>
+                        var np_cities = {{ cities | json_encode | raw }};
+                    </script>
+                </div>
+            </div>
+            <div class="tr delivery delivery-novaposhta" style="display:none">
+                <div class="td"><label for="filial_id">{{ t('app', 'Отделение Новой Почты') }}:</label></div>
+                <div class="td">
+                    <div class="select">
+                        <select name="filial_id" id="filial-id" data-sel="{{ user.filial_id }}">
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <!--div class="tr">
+                <div class="td"><label>{{ t('app', 'Стоимость доставки') }}:</label></div>
+                <div class="td"><strong>123 грн.</strong></div>
+            </div-->
+        </div>
+        <div class="cart-summary">{{ t('app', 'Всего к оплате') }}: <span><i class="cart-cost">{{ cart.cost }}</i> грн.</span></div>
+        <div class="gui-message"></div>
+        <div class="cart-send"><button class="btn btn-b no-arrow gui-request" data-module="order" data-data="method=save_order" data-form=".order-form">{{ t('app', 'Оформить заказ') }}</button></div>
+    </div>
+</div>
+{% else %}
+<div class="box border-bottom">
+    <div class="container">
+        <div style="padding:20px; text-align:center; font-size:16px;">{{ t('app', 'В корзине нет товаров') }}</div>
+    </div>
+</div>
+{% endif %}

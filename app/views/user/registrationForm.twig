@@ -1,0 +1,14 @@
+<div id="registration-modal" class="popup-box reg-popup-box mfp-content">
+    <div class="title"><h3>{{ t('app', 'Регистранция') }}</h3></div>
+    <div class="form registration-form">
+        <ul>
+            <li><input type="text" name="name" value="" placeholder="{{ t('app', 'Ваше имя') }}*" /></li>
+            <li><input type="email" name="email" value="" placeholder="Ваш email*" /></li>
+            <li><input type="password" name="password" value="" placeholder="Пароль*" /></li>
+            <li><input type="password" name="password_confirm" value="" placeholder="{{ t('app', 'Подтвердите пароль') }}*" /></li>
+            <li><input type="tel" name="phone" value="" placeholder="Телефон" /></li>
+            <li class="gui-message"></li>
+            <li style="text-align: center;"><button class="btn gui-request" data-module="user" data-data="method=registration" data-form=".registration-form">{{ t('app', 'Зарегистрироваться') }}</button></li>
+        </ul>
+    </div>
+</div>

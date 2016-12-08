@@ -1,0 +1,54 @@
+{{ use('app/widgets/SLinkPager') }}
+
+<div class="box shopcolls-box">
+    <div class="container clearfix">
+        <div class="colls-box tb">
+            <div class="main-coll td">
+                <div class="breadcrumbs">
+                    <div class="container"><a href="{{ this.params.home_url }}">{{ t('app', 'Главная') }}</a> <span class="breadcrumbs-arrow">|</span> <span class="current">{{ t('app', 'Поиск') }}</span></div>
+                </div>
+
+                <div class="main-box border-bottom">
+                    <div class="title"><h1>{{ t('app', 'Поиск по запросу') }} "{{ search }}"</h1></div>
+                </div>
+
+                {% if count_products %}
+                    <div class="main-box clearfix">
+                        <div class="left items-count">{{ t('app', 'Найдено товаров') }}: {{ count_products }}</div>
+                        <div class="right items-select">
+                            <div class="select">
+                                <select onchange="document.location.href=$(this).val()">
+                                    {% for s in sort %}<option value="{{ s.url }}" {{ s.selected }}>{{ s.name }}</option>{% endfor %}
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    {% include '@app/views/product/list.twig' %}
+                    {{ s_link_pager_widget({
+                        'pagination' : pages,
+                        'firstPageLabel' : '',
+                        'prevPageLabel' : '',
+                        'nextPageLabel' : '',
+                        'lastPageLabel' : '',
+                        'activePageCssClass': "nav-step active",
+                        'maxButtonCount' : 5,
+
+                        'options' : {
+                            'class' : 'navigation navigation-right',
+                        },
+                        'linkOptions' : {
+                            'class' : 'nav-step',
+                        },
+                        'firstPageCssClass' : 'nav-first',
+                        'prevPageCssClass' : 'nav-before',
+                        'nextPageCssClass' : 'nav-next',
+                        'lastPageCssClass' : 'nav-end',
+                    })
+                    }}
+                {% else %}
+                    <p style="padding:20px;text-align:center;font-size:16px;">{{ Yii.t('app','Ничего не найдено') }}</p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>

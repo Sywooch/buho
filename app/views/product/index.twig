@@ -1,0 +1,194 @@
+{{ use('app/assets/ProductAsset') }}
+{{ register_product_asset(this) }}
+{{ use('yii/widgets/Breadcrumbs') }}
+{{ use('app/widgets/SLinkPager') }}
+{{ set(this, 'title', product.info.name) }}
+{{ set(this, 'description', 'product.info.name') }}
+
+<div class="breadcrumbs">
+    {{ breadcrumbs_widget({
+       'tag' : 'div',
+       'options' : {
+           'class' : 'container',
+       },
+       'itemTemplate' : '<span itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">{link}</span> <span class="breadcrumbs-arrow">|</span>',
+       'activeItemTemplate' : '<span itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">{link}</span>',
+       'encodeLabels': false,
+       'links': breadcrumbs
+    }) }}
+</div>
+
+<div class="box border-bottom">
+    <div class="container">
+        <div class="product-page clearfix">
+            <div class="left ppage-left clearfix">
+                <div class="left productpage-slider-trumbs">
+                    <ul>
+                        {% for i in 0..product.imgs | length-1 %}
+                        <li><a><span><img src="{{ product.imgs[i] }}" alt="{{ product.info.name }}" /></span></a></li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                <div class="right productpage-slider">
+                    <ul>
+                        {% for i in 0..product.imgs | length-1 %}
+                            <li><a href="{{ product.img[i] }}" target="_blank"><span><img src="{{ product.img[i] }}" alt="{{ product.info.name }}" /></span></a></li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+            <div class="right ppage-right">
+                <div class="ppage-info">
+                    <div class="title"><h1>{{ product.info.name }}</h1></div>
+                    <p>
+                        Код: {{ product.articul }}<br />
+                    </p>
+                    {% if gift is defined %}
+                    <div class="gift">
+                        <p>{{ t('app', 'С этим товаром идёт подарок') }}:</p>
+                        <p>
+                            <a href="{{ gift.url }}" class="image"><img src="{{ gift.imgs[0] }}" alt="" /></a>
+                            <a href="{{ gift.url }}" class="name">{{ gift.info.name }}</a>
+                        </p>
+                    </div>
+                    {% endif %}
+                </div>
+                <div class="ppage-options clearfix">
+                    {% if product.available > 0 %}
+                        <div class="left product-status">{{ t('app', 'Есть в наличии') }}</div>
+                        {% if product_delivery[product.id] is defined %}
+                            <div class="left product-delivery">{{ t('app', 'Доставка') }}: {{ product_delivery[product.id] }}</div>
+                        {% endif %}
+                        {% if product.installation > 0 %}
+                            <div class="left product-montage">{{ t('app', 'Можно заказать электромонтаж') }}</div>
+                        {% endif %}
+                    {% else %}
+                        <div class="left product-status none">{{ t('app', 'Нет в наличии') }}</div>
+                    {% endif %}
+                </div>
+                <div class="ppage-buttons clearfix">
+                    <div class="left pb-left clearfix">
+                        <div class="left ppage-price">
+                            {% if product.userPrice < product.price_old %}<span class="old">{{ product.price_old }}</span>{% endif %}
+                            <span class="new">{{ product.userPrice }} грн.</span>
+                        </div>
+                        {% if product.available > 0 %}
+                        <div class="left quantity current-quantity">
+                            <input id="content" value="1" type="text" name="count" min="1" max="{{ product.available }}" />
+                            <a id="up" class="button">+</a>
+                            <a id="down" class="button">-</a>
+                        </div>
+                        <button class="left cart-btn cart-btn-full gui-request" data-module="cart" data-data="method=add&product_id={{ product.id }}" data-form=".current-quantity">{{ t('app', 'В корзину') }}</button>
+                        {% endif %}
+                    </div>
+                    <div class="right pb-right clearfix">
+                        <button class="left btn-towish wishlist{{ product.id }} {{ product.wishlist }} gui-request" data-module="wishlist" data-data="method=add&product_id={{ product.id }}">{{ t('app', 'В список желаний') }}</button>
+                        <button class="left btn-compre compare{{ product.id }} {{ product.compare }} gui-request" data-module="compare" data-data="method=add&product_id={{ product.id }}">{{ t('app', 'Добавить к сравнению') }}</button>
+                    </div>
+                </div>
+                <p class="product-more">* {{ t('app', 'Скидка с учетом предыдущих покупок') }}</p>
+            </div>
+        </div>
+        <div class="tabs-nav ui-tabs">
+            <ul class="tabs-nav-list">
+                <li class="ui-tabs-active"><a href="#tabs-1">{{ t('app', 'Характеристики') }}</a></li>
+                <li><a href="#tabs-2">{{ t('app', 'Описание') }}</a></li>
+                <li><a href="#tabs-3">{{ t('app', 'Отзывы') }}</a></li>
+                <li><a href="#tabs-4">{{ t('app', 'Электромонтаж') }}</a></li>
+            </ul>
+            <div id="tabs-1">
+                <div class="clearfix specifics">
+                    <div class="left">
+                        <div class="product-specific">
+                            <h3>{{ t('app', 'Информация о товаре') }}</h3>
+                            <div class="tb">
+                                <div class="tr">
+                                    <div class="td"><span>{{ t('app', 'Название') }}</span></div>
+                                    <div class="td">{{ product.info.name }}</div>
+                                </diV>
+                                <div class="tr">
+                                    <div class="td"><span>{{ t('app', 'Артикул') }}</span></div>
+                                    <div class="td">{{ product.articul }}</div>
+                                </div>
+                                {% for param in product_params[product.id] %}
+                                    <div class="tr">
+                                        <div class="td"><span>{{ param.param_name }}</span></div>
+                                        <div class="td">{{ param.value_name }}</div>
+                                    </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="right">
+                        {% for file in product.files %}
+                            <div class="product-file pdf">
+                                <span>{{ file.title }}</span>
+                                <a href="{{ file.url }}" target="_blank">{{ t('app', 'Скачать') }}</a>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+            <div id="tabs-2" style="display:none">
+                <div class="clearfix specifics">
+                    <div class="left">
+                        {% if product.info.txt | length %}
+                        {{ product.info.txt | raw }}
+                        {% else %}
+                        {{ seo_text | raw }}
+                        {% endif %}
+                    </div>
+                    <div class="right">
+                        {% for file in product.files %}
+                            <div class="product-file pdf">
+                                <span>{{ file.title }}</span>
+                                <a href="{{ file.url }}" target="_blank">{{ t('app', 'Скачать') }}</a>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+            <div id="tabs-3">
+                <div class="testimonials">
+                    <a class="testimonial-btn btn gui-request" data-module="user" data-data="method=comment_window&product_id={{ product.id }}">Оставить отзыв</a>
+
+                    {% for comment in product.comments %}
+                    <div class="testimonial-item">
+                        <div class="testimonial-header">
+                            <div class="testimonial-author">{{ comment.name }}</div>
+                            <div class="testimonial-date">{{ comment.created | date('d.m.Y H:i') }}</div>
+                        </div>
+                        <div class="testimonial-content">{{ comment.text }}</div>
+                    </div>
+                    {% endfor %}
+
+                    <!--a href="" class="testimonial-morelink">Показать еще</a-->
+                </div>
+            </div>
+            <div id="tabs-4">
+                <h3>Электромонтаж Lamp lorem ipsum dolor 0987/3 CR</h3>
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Et quod, dolore deserunt necessitatibus, rem fuga. Aperiam, expedita in eius consequatur saepe, quos odio nostrum atque enim ad aliquam harum quae magnam aspernatur repellendus assumenda. Ullam dicta molestias, consequuntur sit cupiditate ipsa maxime excepturi hic architecto dignissimos possimus quod laudantium, animi aliquid at quidem ex saepe. Debitis deserunt perspiciatis impedit est accusantium vitae exercitationem corporis, architecto error amet libero dolore, earum, architecto error amet libero dolore, earum.</p>
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Et quod, dolore deserunt necessitatibus, rem fuga. Aperiam, expedita in eius consequatur saepe, quos odio nostrum atque enim ad aliquam harum quae magnam aspernatur repellendus assumenda. Ullam dicta molestias, consequuntur sit cupiditate ipsa maxime excepturi hic architecto dignissimos possimus quod laudantium, animi aliquid at quidem ex saepe. Debitis deserunt perspiciatis impedit est accusantium vitae exercitationem corporis, architecto error amet libero dolore, earum.</p>
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Et quod, dolore deserunt necessitatibus, rem fuga. Aperiam, expedita in eius consequatur saepe, quos odio nostrum atque enim ad aliquam harum quae magnam aspernatur repellendus assumenda. Ullam dicta molestias, consequuntur sit cupiditate ipsa maxime excepturi hic architecto dignissimos possimus quod laudantium, animi aliquid at quidem ex saepe. Debitis deserunt perspiciatis impedit est accusantium vitae exercitationem corporis, architecto error amet libero dolore, earum.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% if similar %}
+    <div class="box border-bottom">
+        <div class="container">
+            <div class="title"><h2>{{ t('app', 'Похожие товары') }}</h2></div>
+            {% include '@app/views/product/list.twig' with {products:similar, products_params:similar_params, products_delivery:similar_delivery} %}
+        </div>
+    </div>
+{% endif %}
+
+{% if recom %}
+    <div class="box">
+        <div class="container">
+            <div class="title"><h2>{{ t('app', 'Рекомендованные товары') }}</h2></div>
+            {% include '@app/views/product/list.twig' with {products:recom, products_params:recom_params, products_delivery:recom_delivery} %}
+        </div>
+    </div>
+{% endif %}

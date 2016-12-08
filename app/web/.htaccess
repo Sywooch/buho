@@ -1,0 +1,21 @@
+RewriteEngine on
+
+# ->www
+#RewriteCond %{HTTP_HOST} ^([^www].*)$
+#RewriteRule ^(.*)$ http://www.%1/$1 [L,R=301]
+
+#add slash
+RewriteCond %{REQUEST_URI} !\?
+RewriteCond %{REQUEST_URI} !\&
+RewriteCond %{REQUEST_URI} !\=
+RewriteCond %{REQUEST_URI} !\.
+RewriteCond %{REQUEST_URI} !\/$
+RewriteRule ^(.*[^\/])$ /$1/ [R=301,L]
+
+# if a directory or a file exists, use the request directly
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+
+# otherwise forward the request to index.php
+RewriteRule . index.php
+

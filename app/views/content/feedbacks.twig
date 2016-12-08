@@ -1,0 +1,44 @@
+<div class="breadcrumbs">
+    <div class="container"><a href="{{ this.params.home_url }}">{{ t('app', 'Главная') }}</a> <span class="breadcrumbs-arrow">|</span> <span class="current">{{ t('app', 'Отзывы') }}</span></div>
+</div>
+
+<div class="box feedbacks-box">
+    <div class="title"><h1>{{ t('app', 'Что о нас говорят клиенты?') }}</h1></div>
+    <div class="feedbacks-slider">
+        <div class="container">
+            <ul class="feedbacks-slider-list">
+                {% for feedback in feedbacks %}
+                <li>
+                    <div class="feedback-text">
+                        <p>
+                            {{ feedback.text }}
+                        </p>
+                    </div>
+                    <div class="feedback-title">
+                        <h2>{{ feedback.name }}</h2>
+                        <p>{{ feedback.company }}</p>
+                    </div>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+</div>
+
+<div class="box grey center">
+    <div class="container">
+        <div class="title"><h1>{{ t('app', 'Добавить отзыв') }}</h1></div>
+        <div class="form fb-form">
+            <form method="get" action="#" id="feedback-form">
+            <ul>
+                <li><input type="text" name="name" value="{{ user.name }}" placeholder="{{ t('app', 'Ваше имя') }}*" /></li>
+                <li><input type="email" name="email" value="{{ user.email }}" placeholder="Ваш email*" /></li>
+                <li><input type="text" name="company" value="" placeholder="{{ t('app', 'Ваша компания') }}" /></li>
+                <li><textarea name="text" placeholder="{{ t('app', 'Комментарий') }}*"></textarea></li>
+                <li class="gui-message"></li>
+                <li style="text-align: center;"><a class="btn gui-request" data-module="content" data-data="method=save_feedback" data-form="#feedback-form">{{ t('app', 'Отправить') }}</a></li>
+            </ul>
+            </form>
+        </div>
+    </div>
+</div>

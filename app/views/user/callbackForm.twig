@@ -1,0 +1,11 @@
+<div id="callback-modal" class="popup-box mfp-content">
+    <div class="title"><h3>{{ t('app', 'Заказать обратный звонок') }}</h3></div>
+    <div class="form callback-form">
+        <ul>
+            <li><input type="text" name="name" value="" placeholder="{{ t('app', 'Ваше имя') }}*" /></li>
+            <li><input type="tel" name="phone" value="" placeholder="Телефон*" /></li>
+            <li class="gui-message"></li>
+            <li style="text-align: center;"><button class="btn gui-request" data-module="user" data-data="method=callback" data-form=".callback-form">{{ t('app', 'Отправить') }}</button></li>
+        </ul>
+    </div>
+</div>

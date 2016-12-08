@@ -1,0 +1,97 @@
+{{ use('yii/widgets/Breadcrumbs') }}
+{{ use('app/widgets/SLinkPager') }}
+{{ set(this, 'title', category.info.name) }}
+{{ set(this, 'description', '') }}
+
+<div class="box shopcolls-box">
+    <div class="container clearfix">
+        <div class="colls-box tb">
+            <div class="sidebar td">
+                {% include 'filter.twig' %}
+            </div>
+            <div class="main-coll td">
+                {{ breadcrumbs_widget({
+                    'tag' : 'div',
+                    'options' : {
+                        'class' : 'main-box breadcrumbs',
+                    },
+                    'itemTemplate' : '<span itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">{link}</span> <span class="breadcrumbs-arrow">|</span>',
+                    'activeItemTemplate' : '<span itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">{link}</span>',
+                    'encodeLabels': false,
+                    'links': category.breadcrumbs
+                }) }}
+                <div class="main-box border-bottom">
+                    <div class="title title-left"><h1>{{ category.info.name }}</h1></div>
+                    {{ category.info.txt | raw }}
+                </div>
+
+                <div style="float: right; width: 300px;">
+                    {% for file in category.files %}
+                        <div class="product-file pdf">
+                            <span>{{ file.title }}</span>
+                            <a href="{{ file.url }}" target="_blank">{{ t('app', 'Скачать') }}</a>
+                        </div>
+                    {% endfor %}
+                </div>
+
+                <!-- Подкатегории -->
+                {% if category.childs %}
+                <div class="main-box border-bottom">
+                    <ul>
+                        {% for child in category.childs %}
+                            <li>
+                                <a href="{{ child.url }}">{{ child.info.name }} ({{ child.productsCount }})</a>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                {% endif %}
+
+                <div style="clear: both"></div>
+
+                <div class="main-box clearfix">
+                    <div class="left items-count">{{ t('app', 'Подобрано') }} {{ count_current }} {{ t('app', 'товаров') }} {{ t('app', 'из') }} {{ count_total }}</div>
+                    <div class="right items-select">
+                        <div class="select">
+                            <select onchange="document.location.href=$(this).val()">
+                                {% for s in sort %}<option value="{{ s.url }}" {{ s.selected }}>{{ s.name }}</option>{% endfor %}
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                {% if count_current %}
+                    {% include '@app/views/product/list.twig' %}
+                {% else %}
+                    <p style="padding:20px;text-align:center;font-size:16px;">{{ Yii.t('app','Нет товаров для отображения') }}</p>
+                {% endif %}
+
+                {{ s_link_pager_widget({
+                    'pagination' : pages,
+                    'firstPageLabel' : '',
+                    'prevPageLabel' : '',
+                    'nextPageLabel' : '',
+                    'lastPageLabel' : '',
+                    'activePageCssClass': "nav-step active",
+                    'maxButtonCount' : 5,
+
+                    'options' : {
+                        'class' : 'navigation navigation-right',
+                    },
+                    'linkOptions' : {
+                        'class' : 'nav-step',
+                    },
+                    'firstPageCssClass' : 'nav-first',
+                    'prevPageCssClass' : 'nav-before',
+                    'nextPageCssClass' : 'nav-next',
+                    'lastPageCssClass' : 'nav-end',
+                    })
+                }}
+
+                <div class="bottom-textbox">
+                    <p>Место для сео-текстов</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

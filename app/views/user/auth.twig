@@ -1,0 +1,22 @@
+<div class="container">
+    <div class="userinfo form tb">
+        <form id="cabinet-auth-form" action="#" method="post">
+        <div class="tr">
+            <div class="td"><label>Email:</label></div>
+            <div class="td"><input type="text" name="email" value="" /></div>
+        </div>
+        <div class="tr">
+            <div class="td"><label>Пароль:</label></div>
+            <div class="td"><input type="password" name="password" value="" /></div>
+        </div>
+        <div class="tr">
+            <div class="td"></div>
+            <div class="td gui-message" style="width:200px"></div>
+        </div>
+        <div class="tr">
+            <div class="td"></div>
+            <div class="td"><button type="button" class="btn gui-request" data-module="user" data-data="method=login" data-form="#cabinet-auth-form">{{ t('app', 'Войти') }}</button></div>
+        </div>
+        </form>
+    </div>
+</div>

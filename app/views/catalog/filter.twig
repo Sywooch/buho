@@ -1,0 +1,38 @@
+<div class="side side-filter side-active-filters">
+    <h3>{{ t('app', 'Подбор по параметрам') }}</h3>
+    {% if reset_filter is defined %}<a class="filter-clear" href="{{ reset_filter }}">{{ t('app', 'Сбросить все фильтры') }}</a>{% endif %}
+</div>
+<div class="side-filter">
+    <h3>{{ t('app', 'Цена') }}</h3>
+    <div class="filter-slider">
+        <div class="fs-inputs">
+            {{ t('app', 'от') }} <input type="text" id="minCost" value="{{ price.min }}" data-limit="{{ price.min_limit }}" />
+            {{ t('app', 'до') }} <input type="text" id="maxCost" value="{{ price.max }}" data-limit="{{ price.max_limit }}" /> грн
+        </div>
+        <div id="slider"></div>
+        <a class="btn" id="price-filter-url" data-href="{{ price.url }}"> {{ t('app', 'Применить') }}</a>
+    </div>
+    <ul class="filter-list">
+        {% for value in selected %}
+        <li>
+            <input type="checkbox" id="filter-{{ value.value_id }}" checked onchange="document.location.href=$(this).siblings('a').attr('href')" />
+            <a href="{{ value.url }}">{{ value.value_name }} <span class="fiter-count">({{ value.count }})</span></a>
+        </li>
+        {% endfor %}
+    </ul>
+</div>
+{% for param in filter %}
+<div class="side side-filter">
+    <h3>{{ param.name }}</h3>
+    <ul class="filter-list">
+        {% for value in param.values %}
+        {% if loop.index == 10 %} </ul><ul class="filter-list hide-filters"> {% endif %}
+        <li>
+            <input type="checkbox" id="filter-{{ value.value_id }}" {% if value.selected %} checked {% endif %} onchange="document.location.href=$(this).siblings('a').attr('href')" />
+            <a href="{{ value.url }}">{{ value.value_name }}&nbsp;<span class="fiter-count">({{ value.count }})</span></a>
+        </li>
+        {% endfor %}
+    </ul>
+    {% if param.values|length > 10 %}<div class="filter-loadmore">{{ t('app', 'Показать еще') }}</div>{% endif %}
+</div>
+{% endfor %}

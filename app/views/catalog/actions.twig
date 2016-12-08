@@ -1,0 +1,44 @@
+{{ use('app/widgets/SLinkPager') }}
+
+<div class="breadcrumbs">
+    <div class="container"><a href="{{ this.params.home_url }}">{{ t('app', 'Главная') }}</a> <span class="breadcrumbs-arrow">|</span> <span class="current">{{ t('app', 'Акции и скидки') }}</span></div>
+</div>
+
+<div class="box">
+    <div class="container">
+        <div class="title"><h1>{{ t('app', 'Акции и скидки') }}</h1></div>
+        <div class="tabs-nav">
+            <ul class="tabs-nav-list">
+                <li {% if type == 'actions' %}class="active"{% endif %}><a href="{{ Url.to('/catalog/actions') }}">{{ t('app', 'Акционные товары') }}</a></li>
+                <li {% if type == 'discounts' %}class="active"{% endif %}><a href="{{ Url.to('/catalog/discounts') }}">{{ t('app', 'Товары со скидкой') }}</a></li>
+            </ul>
+            {% if count_products %}
+            {% include '@app/views/product/list.twig' %}
+                <br>
+            {{ s_link_pager_widget({
+                'pagination' : pages,
+                'firstPageLabel' : '',
+                'prevPageLabel' : '',
+                'nextPageLabel' : '',
+                'lastPageLabel' : '',
+                'activePageCssClass': "nav-step active",
+                'maxButtonCount' : 5,
+
+                'options' : {
+                    'class' : 'navigation navigation-right',
+                },
+                'linkOptions' : {
+                    'class' : 'nav-step',
+                },
+                'firstPageCssClass' : 'nav-first',
+                'prevPageCssClass' : 'nav-before',
+                'nextPageCssClass' : 'nav-next',
+                'lastPageCssClass' : 'nav-end',
+            })
+            }}
+            {% else %}
+                <p style="padding:20px;text-align:center;font-size:16px;">{{ Yii.t('app','Ничего не найдено') }}</p>
+            {% endif %}
+        </div>
+    </div>
+</div>

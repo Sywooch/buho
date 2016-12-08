@@ -1,0 +1,96 @@
+#	Не отображать файлы в категории
+Options -Indexes
+#	Индекс-файл
+DirectoryIndex index.php index.html
+#	Кодировка по-умолчанию
+AddDefaultCharset utf-8
+AddCharset UTF-8 .htm .html .js .css
+
+<IfModule mod_php5.c>
+#	Включить отображение ошибок
+	php_value display_errors On
+#	Включить отображение ошибок, возникающих при запуске PHP
+    php_value display_startup_errors On
+#	Уровень отображаемых ошибок
+    php_value  error_reporting "E_ALL & ~E_NOTICE"
+#	Не запускать сессию автоматически
+	php_value session.auto_start off
+</IfModule>
+
+<IfModule mod_expires.c>
+#	Настройка кеширования файлов браузером
+	ExpiresActive on
+#	По-умолчанию файлы кешируются на 2 недели после доступа (A - Access)
+	ExpiresDefault A1209600
+#	Изображения кешируются на месяц
+	ExpiresByType image/jpeg "access plus 1 month"
+	ExpiresByType image/gif "access plus 1 month"
+	ExpiresByType image/png "access plus 1 month"
+	ExpiresByType image/svg "access plus 1 month"
+	ExpiresByType image/svg+xml "access plus 1 month"
+#	Стили и скрипты кешируются на неделю
+	ExpiresByType text/css "access plus 1 week"
+	ExpiresByType application/javascript "access plus 1 week"
+</IfModule>
+
+<IfModule mod_deflate.c>
+#	Настройка сжатия файлов при передаче браузеру
+    <filesMatch "\.(css|js|jpg|gif|png|svg)$">
+        SetOutputFilter DEFLATE
+    </filesMatch>
+    AddOutputFilterByType DEFLATE application/javascript
+    AddOutputFilterByType DEFLATE text/javascript
+    AddOutputFilterByType DEFLATE text/css
+    AddOutputFilterByType DEFLATE text/html
+</IfModule>
+
+<IfModule mod_headers.c>
+#	Отключить сниффинг
+	Header always set X-Content-Type-Options nosniff
+</IfModule>
+
+<IfModule mod_rewrite.c> 
+  RewriteEngine on
+  #RewriteRule images\/product\/6\.1\.b\.jpg images/product/wm.php [L]
+  RewriteCond %{REQUEST_URI} !^public
+  RewriteCond %{REQUEST_URI} !\.(rar)$
+  RewriteCond %{REQUEST_URI} !\.(csv)$
+  RewriteRule ^images/product/ images/product/wm.php [L]
+  #RewriteRule ^(.*)$ images/product/wm.php [L]
+
+  RewriteCond %{REQUEST_URI} !^/export
+  RewriteRule ^(.*)$ app/web/$1 [L] 
+</IfModule>
+
+# Deny accessing below extensions
+<Files ~ "(.json|.lock|.git)">
+Order allow,deny
+Deny from all
+</Files>
+
+# ->www
+#RewriteCond %{HTTP_HOST} ^([^www].*)$
+#RewriteRule ^(.*)$ http://www.%1/$1 [L,R=301]
+
+
+
+# Deny accessing dot files
+RewriteRule (^\.|/\.) - [F]
+
+
+#php_flag display_errors On
+# Включаем кэш в браузерах посетителей
+<ifModule mod_headers.c>
+    # Все css, javascript и текстовые файлы будут храниться в кэше браузера одну неделю
+    <FilesMatch "\.(js|css|txt)$">
+        Header set Cache-Control "max-age=604800"
+    </FilesMatch>
+    # Все флэш файлы и изображения будут храниться в кэше браузера один месяц
+    <FilesMatch "\.(flv|swf|ico|gif|jpg|jpeg|png)$">
+        Header set Cache-Control "max-age=2592000"
+    </FilesMatch>
+    # Отключаем кеширование php и других служебных файлов
+    <FilesMatch "\.(pl|php|cgi|spl|scgi|fcgi)$">
+        Header unset Cache-Control
+    </FilesMatch>
+</IfModule>

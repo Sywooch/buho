@@ -1,0 +1,163 @@
+{{ set(this, 'title', Yii.t('app', 'Cart')) }}
+{{ set(this, 'description', Yii.t('app', 'Cart')) }}
+
+<div class="breadcrumbs">
+    <div class="container"><a href="{{ this.params.home_url }}">Главная</a> <span class="breadcrumbs-arrow">|</span> <span class="current">Корзина</span></div>
+</div>
+
+<div class="box border-bottom">
+    <div class="container">
+        <div class="title"><h1>Личный кабинет</h1></div>
+        <div class="tabs-nav">
+            <ul class="tabs-nav-list">
+                <li><a href="#">Информация о пользователе</a></li>
+                <li><a href="#">Мои заказы</a></li>
+                <li><a href="#">Список желаний</a></li>
+                <li class="active"><a>Корзина</a></li>
+            </ul>
+            {% if cart.count > 0 %}
+            <div class="cart-page">
+                <div class="cart-page-top clearfix">
+                    <div class="left cart-total">В корзине: <i class="cart-count">{{ cart.count }}</i> товаров</div>
+                    <div class="right"><button class="clear-btn clearfull-btn gui-request" data-module="cart" data-data="method=clear">Очистить корзину</button></div>
+                </div>
+                <div class="cart-table tb">
+                    {% for product in cart.products %}
+                    <div class="tr">
+                        <div class="td"><button class="clear-btn gui-request" data-module="cart" data-data="method=remove&product_id={{ product.id }}"></button></div>
+                        <div class="td cartd-image">
+                            <a href="{{ product.url }}" class="image-box">
+                                <span><img src="{{ product.image }}" alt="" /></span>
+                            </a>
+                        </div>
+                        <div class="td cartd-name"><a href="{{ product.url }}">{{ product.name }}</a></div>
+                        <div class="td cartd-quantity cart-quantity-{{ product.id }}">
+                            <a id="down" class="button">-</a><input value="{{ product.count }}" name="count" type="text" class="gui-request" data-module="cart" data-data="method=change&product_id={{ product.id }}" data-form=".cart-quantity-{{ product.id }}" /><a id="up" class="button">+</a>
+                        </div>
+                        <div class="td checkbox">
+                            {% if product.installation > 0 %}
+                            <input type="checkbox" name="installation[{{ product.id }}]" checked />
+                            <label for="checkbox-1">
+                                <span>Электромонтаж*</span>
+                                Стоимость: {{ product.installation }} грн.
+                            </label>
+                            {% endif %}
+                        </div>
+                        <!--div class="td cartd-discont">-15 грн.**</div-->
+                        <div class="td cartd-price"><i class="cart-cost-{{ product.id }}">{{ product.cost }}</i> грн.</div>
+                    </div>
+                    {% endfor %}
+                </div>
+                <div class="atempt-box">
+                    <p>
+                        * Электромонтаж осуществляется только на территории Киева.<br />
+                        ** Скидка с учетом предыдущих покупок на сайте.
+                    </p>
+                </div>
+            </div>
+            {% else %}
+            <div style="padding:20px; text-align:center; font-size:16px;">В корзине нет товаров</div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% if cart.count > 0 %}
+<div class="box">
+    <div class="container">
+        <div class="title"><h2>Оформление заказа</h2></div>
+        <div class="cartinfo form tb">
+            <div class="tr">
+                <div class="td"><label>Имя и фамилия:</label></div>
+                <div class="td"><input type="text" value="{{ user.name }}" /></div>
+            </div>
+            <div class="tr">
+                <div class="td"><label>Email:</label></div>
+                <div class="td"><input type="email" value="{{ user.email }}" /></div>
+            </div>
+            <div class="tr">
+                <div class="td"><label>Телефон*:</label></div>
+                <div class="td"><input type="tel" value="{{ user.phone }}" /></div>
+            </div>
+            <div class="tr">
+                <div class="td"><label>Комментарий:</label></div>
+                <div class="td"><textarea placeholder="{{ user.comment }}"></textarea></div>
+            </div>
+            <div class="tr">
+                <div class="td"><label>Способ доставки:</label></div>
+                <div class="td">
+                    <div class="radio">
+                        <input name="radiobutton" type="radio" value="radiobutton" id="radio-1" checked />
+                        <label for="radio-1">
+                            <span>Адресная доставка по Киеву</span>Стоимость: 40 грн.
+                        </label>
+                    </div>
+                    <div class="radio">
+                        <input name="radiobutton" type="radio" value="radiobutton" id="radio-2" />
+                        <label for="radio-2">
+                            <span>Адресная доставка по Киеву</span>Стоимость: 40 грн.
+                        </label>
+                    </div>
+                    <div class="radio">
+                        <input name="radiobutton" type="radio" value="radiobutton" id="radio-3" />
+                        <label for="radio-3">
+                            <span>Самовывоз из отделений Новой почты</span>
+                        </label>
+                    </div>
+                    <div class="select">
+                        <select>
+                            <option>Львов</option>
+                            <option>Киев</option>
+                            <option>Харьков</option>
+                        </select>
+                    </div>
+                    <div class="areas">
+                        <h3>Выберите отделение:</h3>
+                        <div class="radio">
+                            <input name="radioarea" type="radio" value="radioarea" id="radioarea-1" checked />
+                            <label for="radioarea-1">
+                                <span>Отделение №1: ул. Городоцкая, 355/6</span>
+                            </label>
+                        </div>
+                        <div class="radio">
+                            <input name="radioarea" type="radio" value="radioarea" id="radioarea-2" />
+                            <label for="radioarea-2">
+                                <span>Отделение №2: ул. Пластова, 7</span>
+                            </label>
+                        </div>
+                        <div class="radio">
+                            <input name="radioarea" type="radio" value="radioarea" id="radioarea-3" />
+                            <label for="radioarea-3">
+                                <span>Отделение №3: ул. Угорская, 22 (заезд с ул. Луганской)</span>
+                            </label>
+                        </div>
+                        <div class="radio">
+                            <input name="radioarea" type="radio" value="radioarea" id="radioarea-4" />
+                            <label for="radioarea-4">
+                                <span>Отделение №1: ул. Городоцкая, 355/6</span>
+                            </label>
+                        </div>
+                        <div class="radio">
+                            <input name="radioarea" type="radio" value="radioarea" id="radioarea-5" />
+                            <label for="radioarea-5">
+                                <span>Отделение №2: ул. Пластова, 7</span>
+                            </label>
+                        </div>
+                        <div class="radio">
+                            <input name="radioarea" type="radio" value="radioarea" id="radioarea-6" />
+                            <label for="radioarea-6">
+                                <span>Отделение №3: ул. Угорская, 22 (заезд с ул. Луганской)</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="tr">
+                <div class="td"><label>Стоимость доставки:</label></div>
+                <div class="td"><strong>123 грн.</strong></div>
+            </div>
+        </div>
+        <div class="cart-summary">Всего к оплате: <span><i class="cart-cost">{{ cart.cost }}</i> грн.</span></div>
+        <div class="cart-send"><button class="btn btn-b no-arrow">Оформить заказ</button></div>
+    </div>
+</div>
+{% endif %}

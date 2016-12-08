@@ -1,0 +1,22 @@
+<div class="breadcrumbs">
+    <div class="container">
+        <a href="{{ this.params.home_url }}">{{ t('app', 'Главная') }}</a>
+        <span class="breadcrumbs-arrow">|</span>
+        <span class="current">{% for item in this.params.user.menu %}{% if item.url == this.params.current_url %}{{ item.name }}{% endif %}{% endfor %}</span>
+    </div>
+</div>
+
+<div class="box">
+    <div class="container">
+        <div class="title"><h1>{{ t('app', 'Личный кабинет') }}</h1></div>
+        <div class="tabs-nav">
+            <ul class="tabs-nav-list">
+                {% for item in this.params.user.menu %}
+                    <li {% if item.url == this.params.current_url %} class="active" {% endif %}><a  href="{{ item.url }}">{{ item.name }}</a></li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+
+    {% include template %}
+</div>

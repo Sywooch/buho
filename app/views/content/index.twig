@@ -1,0 +1,99 @@
+{{ set(this, 'title', 'Enerline') }}
+{{ set(this, 'description', 'Enerline first page') }}
+
+<div class="slider">
+    <div class="slider-box">
+        <ul>
+            {% for banner in banners %}
+            <li style="background: url({{ banner.bImg }}) 50% 50% no-repeat;">
+                <div class="container">
+                    <div class="td slide">
+                        <h3>{{ banner.info.title_top }}</h3>
+                        <a href="{{ banner.info.href_url }}" class="slide-btn">{{ t('app', 'Перейти к каталогу') }}</a>
+                    </div>
+                </div>
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+</div>
+
+<div class="box border-bottom">
+    <div class="container">
+        <ul class="clearfix capabilitys-list">
+            <li>
+                <a href="{{ Url.to('/delivery.html') }}" class="img-box tb">
+                    <span class="td"><img src="/images/cap-icon1.png" alt="" /></span>
+                </a>
+                <h2><a href="{{ Url.to('/delivery.html') }}">{{ t('app', 'Доставка и оплата') }}</a></h2>
+                <p></p>
+                <a href="{{ Url.to('/delivery.html') }}" class="btn">{{ t('app', 'Подробнее') }}</a>
+            </li>
+            <li>
+                <a href="{{ Url.to('/catalog/actions') }}" class="img-box tb">
+                    <span class="td"><img src="/images/cap-icon2.png" alt="" /></span>
+                </a>
+                <h2><a href="{{ Url.to('/catalog/actions') }}">{{ t('app', 'Акции и скидки') }}</a></h2>
+                <p></p>
+                <a href="{{ Url.to('/catalog/actions') }}" class="btn">{{ t('app', 'Подробнее') }}</a>
+            </li>
+            <li>
+                <a href="{{ Url.to('/guarantee.html') }}" class="img-box tb">
+                    <span class="td"><img src="/images/cap-icon3.png" alt="" /></span>
+                </a>
+                <h2><a href="{{ Url.to('/guarantee.html') }}">{{ t('app', 'Гарантии') }}</a></h2>
+                <p></p>
+                <a href="{{ Url.to('/guarantee.html') }}" class="btn">{{ t('app', 'Подробнее') }}</a>
+            </li>
+            <li>
+                <a href="{{ Url.to('/content/feedbacks') }}" class="img-box tb">
+                    <span class="td"><img src="/images/cap-icon4.png" alt="" /></span>
+                </a>
+                <h2><a href="{{ Url.to('/content/feedbacks') }}">{{ t('app', 'Отзывы клиентов') }}</a></h2>
+                <p></p>
+                <a href="{{ Url.to('/content/feedbacks') }}" class="btn">{{ t('app', 'Подробнее') }}</a>
+            </li>
+        </ul>
+    </div>
+</div>
+
+<div class="box populars-box">
+    <div class="container">
+        <div class="title"><h2>{{ t('app', 'Популярные товары') }}</h2></div>
+        {% include '@app/views/product/list.twig' with {with_bestseller:1} %}
+        <!--div class="load-more"><span>Загрузить еще (5)</span></div-->
+    </div>
+</div>
+
+<div class="box grey news-box">
+    <div class="container">
+        <div class="title"><h2>{{ t('app', 'Новости и статьи') }}</h2></div>
+        <div class="news-slider">
+            <ul class="news-list clearfix">
+                {% for new in news %}
+                <li>
+                    <a href="{{ new.url }}" class="img-box">
+                        <span><img src="{{ new.img }}" alt="{{ new.info.title }}" /></span>
+                    </a>
+                    <h2><a href="{{ new.url }}">{{ new.info.title }}</a></h2>
+                    <p>{{ new.info.description | raw }}</p>
+                    <div class="news-btn"><a href="{{ new.url }}" class="btn">{{ t('app', 'Подробнее') }}</a></div>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+        <div class="more-news"><a href="{{ Url.to('/news.html') }}" class="btn btn-b">{{ t('app', 'Больше новостей') }}</a></div>
+    </div>
+</div>
+
+<div class="box subscrible-box center">
+    <div class="container">
+        <p>{{ t('app', 'Хотите получать новости о свежих акциях и новинках?<br /> подпишитесь на нашу рассылку!') | raw }}</p>
+        <div class="subscrible-form">
+            <form action="" method="get" class="clearfix">
+                <input type="text" value="" name="s" placeholder="Ваш email..." />
+                <button type="submit">{{ t('app', 'Подписаться') }}</button>
+            </form>
+        </div>
+    </div>
+</div>

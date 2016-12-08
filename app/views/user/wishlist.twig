@@ -1,0 +1,21 @@
+<div class="container">
+    <div class="wishlist-list">
+
+        {% if products|length > 0 %}
+            <div class="wishlist-top clearfix">
+                <div class="left clearfix">
+                    <div class="left cart-inline clearfix">
+                        <div class="left"><span class="buy-count">{{ summary.count }}</span> {{ t('app', 'товар(ов) на сумму') }}:</div>
+                        <div class="right"><span class="buy-cost">{{ summary.cost }}</span> грн.</div>
+                    </div>
+                    <button class="left cart-btn cart-btn-full gui-request" data-module="cart" data-data="method=add" data-form=".products-list">{{ t('app', 'В корзину') }}</button>
+                </div>
+                <div class="right"><button class="clear-btn clearfull-btn gui-request" data-module="wishlist" data-data="method=clear">{{ t('app', 'Очистить список желаний') }}</button></div>
+            </div>
+            {% include '@app/views/product/list.twig' %}
+        {% else %}
+            <p style="padding:20px;text-align:center;font-size:16px;">{{ Yii.t('app','Нет товаров для отображения') }}</p>
+        {% endif %}
+
+    </div>
+</div>

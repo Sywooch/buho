@@ -1,0 +1,62 @@
+
+<div class="breadcrumbs">
+    <div class="container"><a href="/">{{ t('app', 'Главная') }}</a> <span class="breadcrumbs-arrow">|</span> <span class="current">{{ t('app', 'Сравнение товаров') }}</span></div>
+</div>
+
+<div class="box border-bottom">
+    <div class="container">
+        <div class="title"><h1>{{ t('app', 'Сравнение товаров') }}</h1></div>
+        {% if products|length > 1 %}
+        <div class="compares-box tb">
+            <div class="tr compare-top">
+                <div class="td">
+                    <div class="compare-add-more" style="height:153px;">
+                        <!--
+                        <a href="#" class="compare-mainpr-img opacive">
+                            <span class="td-box"><img src="images/product-pic2.jpg" alt="" /></span>
+                        </a>
+                        <a href="#" class="compare-add-btn">Добавить еще одну модель</a>
+                        -->
+                        <a class="compare-add-btn gui-request" data-module="compare" data-data="method=clear">{{ t('app', 'Очистить список сравнения') }}</a>
+                    </div>
+                    <ul class="compare-navi">
+                        <li class="active"><a class="all">{{ t('app', 'Все характеристики') }}</a></li><li><a class="diff">{{ t('app', 'Только отличия') }}</a></li>
+                    </ul>
+                </div>
+                {% for product in products %}
+                <div class="td">
+                    <div class="compare-pr-img-container">
+                        <a class="compare-close gui-request" data-module="compare" data-data="method=remove&product_id={{ product.id }}"></a>
+                        <a href="{{ product.url }}" class="compare-pr-img">
+                            <span class="td-box"><img src="{{ product.imgs[0] }}" alt="" /></span>
+                        </a>
+                    </div>
+                    <h2><a href="{{ product.url }}">{{ product.info.name }}</a></h2>
+                </div>
+                {% endfor %}
+            </div>
+            <div class="tr compare-top">
+                <div class="td"></div>
+                {% for product in products %}
+                    <div class="td"><a class="cart-btn cart-btn-full gui-request" data-module="cart" data-data="method=add&product_id={{ product.id }}">{{ t('app', 'Купить') }}</a></div>
+                {% endfor %}
+            </div>
+            <div class="tr">
+                <div class="td">{{ t('app', 'Цена') }}</div>
+                {% for product in products %}
+                    <div class="td">{{ product.price }} грн</div>
+                {% endfor %}
+            </div>
+
+            {% for param in params %}
+            <div class="tr compare-params {{ param.class }}">
+                <div class="td">{{ param.name }}</div>
+                {% for value in param.values %}<div class="td">{{ value }}</div>{% endfor %}
+            </div>
+            {% endfor %}
+        </div>
+        {% else %}
+        <p style="padding:20px;text-align:center;font-size:16px;">{{ Yii.t('app','Не достаточно товаров для сравнения') }}</p>
+        {% endif %}
+    </div>
+</div>

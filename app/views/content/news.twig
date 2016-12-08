@@ -1,0 +1,56 @@
+{{ set(this, 'title', page.info.title ? page.info.title : page.info.name ) }}
+{{ set(this, 'description', page.info.description ? page.info.description : page.info.name) }}
+
+<div class="breadcrumbs">
+    <div class="container"><a href="{{ this.params.home_url }}">{{ t('app', 'Главная') }}</a> <span class="breadcrumbs-arrow">|</span> <span class="current">{{ page.info.name }}</span></div>
+</div>
+
+<div class="box">
+    <div class="container">
+        <div class="title"><h1>{{ page.info.h1? page.info.h1: page.info.name }}</h1></div>
+        <ul class="news-list news-list-category clearfix">
+            {% for new in news %}
+            <li>
+                <a href="{{ new.url }}" class="img-box">
+                    <span><img src="{{ new.img }}" alt="{{ new.info.title }}" /></span>
+                </a>
+                <h2><a href="{{ new.url }}">{{ new.info.title }}</a></h2>
+                <p>{{ new.info.description | raw }}</p>
+                <div class="news-btn"><a href="{{ new.url }}" class="btn">{{ t('app', 'Подробнее') }}</a></div>
+            </li>
+            {% endfor %}
+        </ul>
+
+        {{ s_link_pager_widget({
+            'pagination' : pages,
+            'firstPageLabel' : '',
+            'prevPageLabel' : '',
+            'nextPageLabel' : '',
+            'lastPageLabel' : '',
+            'activePageCssClass': "nav-step active",
+            'maxButtonCount' : 5,
+
+            'options' : {
+                'class' : 'navigation navigation-right',
+            },
+            'linkOptions' : {
+                'class' : 'nav-step',
+            },
+            'firstPageCssClass' : 'nav-first',
+            'prevPageCssClass' : 'nav-before',
+            'nextPageCssClass' : 'nav-next',
+            'lastPageCssClass' : 'nav-end',
+        }) }}
+    </div>
+</div>
+<div class="box subscrible-box grey center">
+    <div class="container">
+        <p>{{ t('app', 'Хотите получать новости о свежих акциях и новинках?<br /> подпишитесь на нашу рассылку!') | raw }}</p>
+        <div class="subscrible-form">
+            <form action="" method="get" class="clearfix">
+                <input type="text" value="" name="s" placeholder="Ваш email..." />
+                <button type="submit">{{ t('app', 'Подписаться') }}</button>
+            </form>
+        </div>
+    </div>
+</div>

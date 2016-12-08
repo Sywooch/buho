@@ -1,0 +1,10 @@
+<div id="forgetpass-modal" class="popup-box mfp-content">
+    <div class="title"><h3>{{ t('app', 'Забыли пароль?') }}</h3></div>
+    <div class="form restore-form">
+        <ul>
+            <li><input type="email" name="email" value="" placeholder="{{ t('app', 'Введите email') }}" /></li>
+            <li style="text-align: center;" class="gui-message"></li>
+            <li style="text-align: center;"><button class="btn gui-request" data-module="user" data-data="method=restore" data-form=".restore-form">{{ t('app', 'Отправить') }}</button></li>
+        </ul>
+    </div>
+</div>

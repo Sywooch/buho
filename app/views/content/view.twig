@@ -1,0 +1,13 @@
+{{ set(this, 'title', page.info.title ? page.info.title : page.info.name ) }}
+{{ set(this, 'description', page.info.description ? page.info.description : page.info.name) }}
+
+<div class="breadcrumbs">
+    <div class="container"><a href="{{ this.params.home_url }}">{{ t('app', 'Главная') }}</a> <span class="breadcrumbs-arrow">|</span> <span class="current">{{ page.info.name }}</span></div>
+</div>
+
+<div class="box">
+    <div class="container">
+        <div class="title"><h1>{{ page.info.h1? page.info.h1: page.info.name }}</h1></div>
+        {{ page.info.text | raw }}
+    </div>
+</div>

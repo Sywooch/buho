@@ -1,0 +1,12 @@
+<div id="comment-modal" class="popup-box mfp-content">
+    <div class="title"><h3>{{ t('app', 'Добавить отзыв') }}</h3></div>
+    <div class="form fb-form comment-form">
+        <ul>
+            <li><input type="text" name="name" value="" placeholder="{{ t('app', 'Ваше имя') }}*" /></li>
+            <li><input type="email" name="email" value="" placeholder="{{ t('app', 'Ваш email') }}" /></li>
+            <li><textarea name="text" placeholder="{{ t('app', 'Комментарий') }}*"></textarea></li>
+            <li class="gui-message"></li>
+            <li style="text-align:center;"><button class="btn gui-request" data-module="user" data-data="method=comment&product_id={{ user.product }}" data-form=".comment-form">{{ t('app', 'Отправить') }}</button></li>
+        </ul>
+    </div>
+</div>

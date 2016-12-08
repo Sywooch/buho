@@ -1,0 +1,27 @@
+<div class="breadcrumbs">
+    <div class="container"><a href="{{ this.params.home_url }}">{{ t('app', 'Главная') }}</a> <span class="breadcrumbs-arrow">|</span> <span class="current">{{ t('app', 'Партнёры') }}</span></div>
+</div>
+
+<div class="box">
+    <div class="container">
+        <div class="title"><h1>{{ t('app', 'Нам доверяют') }}</h1></div>
+        <ul class="partners-list clearfix">
+            {% for partner in partners %}
+            <li class="clearfix">
+                <a href="{{ partner.site }}" class="left img-box" target="_blank">
+                    <span><img src="{{ partner.logo }}" alt="{{ partner.name }}" /></span>
+                </a>
+                <div class="right text-box">
+                    {{ partner.about }}
+                </div>
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+</div>
+<div class="box grey center">
+    <div class="container">
+        <p>Мы приглашает к сотрудничеству поставщиков и производителей. Мы рассматриваем сотрудничество с<br /> поставщиками и производителями как одно из основных направлений развития и видим, что существует взаимная<br /> заинтересованность в таком сотрудничестве.</p>
+        <a href="{{ Url.to('/contacts.html') }}" class="btn btn-b">{{ t('app', 'Связаться с нами') }}</a>
+    </div>
+</div>

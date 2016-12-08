@@ -1,0 +1,30 @@
+<div class="container">
+    <div class="userinfo form tb">
+        <form method="post" action="" id="profile-form">
+        <div class="tr">
+            <div class="td"><label>{{ t('app', 'Имя и фамилия') }}:</label></div>
+            <div class="td"><input type="text" name="name" value="{{ user.name }}" /></div>
+        </div>
+        <div class="tr">
+            <div class="td"><label>Адрес:</label></div>
+            <div class="td"><input type="text" name="address" value="{{ user.address }}" /></div>
+        </div>
+        <div class="tr">
+            <div class="td"><label>Email:</label></div>
+            <div class="td"><input type="text" name="email" value="{{ user.email }}" /></div>
+        </div>
+        <div class="tr">
+            <div class="td"><label>Телефон:</label></div>
+            <div class="td"><input type="tel" name="phone" value="{{ user.phone }}" /></div>
+        </div>
+        <div class="tr">
+            <div class="td"></div>
+            <div class="td gui-message" style="width:400px"></div>
+        </div>
+        <div class="tr">
+            <div class="td"></div>
+            <div class="td"><button type="button" class="btn gui-request" data-module="user" data-data="method=update" data-form="#profile-form">{{ t('app', 'Сохранить изменения') }}</button></div>
+        </div>
+        </form>
+    </div>
+</div>

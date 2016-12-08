@@ -1,0 +1,66 @@
+<ul class="products-list clearfix">
+{% for product in products %}
+    {% if with_bestseller is defined and loop.index == 1 %}
+    <li class="bestseller" data-id="{{ product.id }}" data-price="{{ product.userPrice }}">
+        <a href="{{ product.url }}" class="img-box tb">
+            <span class="topsale"></span>
+            <span class="td"><img src="{{ product.img[0] }}" alt="" /></span>
+            <h2>{{ product.info.name }}</h2>
+        </a>
+        <div class="product-price-box clearfix">
+            <div class="left price-cn">{{ product.userPrice }} грн.</div>
+            {% if product.userPrice < product.price_old %}<div class="left price-cn oldprice">{{ product.price_old }} грн.</div>{% endif %}
+            <div class="right price-incart">
+                <a class="cart-btn cart-btn-full gui-request" data-module="cart" data-data="method=add&product_id={{ product.id }}">{{ t('app', 'В корзину') }}</a>
+            </div>
+        </div>
+        <div class="product-hover-info">
+            <p>{% for param in product.extraparams %}<b>{{ param.param_name }}:</b> {{ param.value_name }}. {% endfor %}</p>
+            <a href="{{ product.url }}" class="btn2">{{ t('app', 'Подробнее') }}</a>
+        </div>
+    </li>
+    {% else %}
+    <li data-id="{{ product.id }}" data-price="{{ product.userPrice }}">
+        {% if wishlist_editor is defined %}
+        <div class="product-selectbox clearfix">
+            <input type="hidden" name="product_id[]" value="{{ product.id }}" />
+            <input type="checkbox" class="left product-check" name="product_check[{{ product.id }}]" value="1" />
+            <button class="right clear-btn gui-request" data-module="wishlist" data-data="method=remove&product_id={{ product.id }}"></button>
+        </div>
+        {% endif %}
+        <a href="{{ product.url }}" class="img-box tb">
+            {% if product.giftActive %}<span class="present"></span>{% endif %}
+            <span class="td"><img src="{{ product.imgs[0] }}" alt="" /></span>
+        </a>
+        <div class="product-info">
+            <h2><a href="{{ product.url }}">{{ product.info.name }}</a></h2>
+            {% if product.available > 0 %}
+            <div class="product-status">{{ t('app', 'Есть в наличии') }}</div>
+            {% else %}
+            <div class="product-status none">{{ t('app', 'Нет в наличии') }}</div>
+            {% endif %}
+            <div class="product-delivery">{{ t('app', 'Доставка') }} {{ product.delivery }}</div>
+        </div>
+        <div class="product-price-box clearfix">
+            {% if product.userPrice < product.price_old %}
+            <div class="left price-cn prices-nw clearfix">
+                <div class="left pr-oldprice">{{ product.price_old }} грн.</div>
+                <div class="right">{{ product.userPrice }} грн.</div>
+            </div>
+            {% else %}
+            <div class="left price-cn">{{ product.userPrice }} грн.</div>
+            {% endif %}
+            {% if product.available > 0 %}
+            <div class="right price-incart">
+                <a class="cart-btn gui-request" data-module="cart" data-data="method=add&product_id={{ product.id }}"></a>
+            </div>
+            {% endif %}
+        </div>
+        <div class="product-hover-info">
+            <p>{% for param in product.extraparams %}<b>{{ param.param_name }}:</b> {{ param.value_name }}. {% endfor %}</p>
+            <a href="{{ product.url }}" class="btn2">{{ t('app', 'See more') }}</a>
+        </div>
+    </li>
+    {% endif %}
+{% endfor %}
+</ul>

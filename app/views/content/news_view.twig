@@ -1,0 +1,21 @@
+{{ set(this, 'title', one_new.info.title ) }}
+{{ set(this, 'description', one_new.info.description | raw) }}
+<div class="breadcrumbs">
+    <div class="container">
+        <a href="{{ this.params.home_url }}">{{ t('app', 'Главная') }}</a>
+        <span class="breadcrumbs-arrow">|</span> <a href="{{ this.params.home_url }}news.html">{{ t('app', 'Новости') }}</a>
+        <span class="breadcrumbs-arrow">|</span> <span class="current">{{ one_new.info.title }}</span>
+    </div>
+</div>
+
+<div class="box">
+    <div class="container">
+        <div class="title"><h1>{{ one_new.info.title }}</h1></div>
+        {{ one_new.info.text |raw }}
+    </div>
+</div>
+<div class="box center border-top">
+    <div class="container">
+        <a href="{{ this.params.home_url }}news.html" class="btn btn-b">{{ t('app', 'Больше новостей') }}</a>
+    </div>
+</div>

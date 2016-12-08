@@ -1,0 +1,195 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html lang="ru">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
+    <title>Enerline</title>
+</head>
+<body style="margin:0; padding:0; width:100%; background-color:#f7f7f7">
+<table border="0" cellpadding="0" cellspacing="0" style="margin:0; padding:0; font-family:Arial, Helvetica, sans-serif; font-size:14px; line-height:1.5em; color:#242424; border-collapse: collapse;" width="100%" bgcolor="#f7f7f7">
+    <tr>
+        <td align="center">
+            <!--letter header start-->
+            <table border="0" cellpadding="0" cellspacing="0" width="100%" bgcolor="#ffffff" style="border-collapse: collapse; max-width:600px;">
+                <tr>
+                    <td width="25">
+                        <div style="height:18px"></div>
+                    </td>
+                    <td width="127" rowspan="5">
+                        <a href="#" target="_blank" style="text-decoration:none">
+                            <img src="{{ root }}images/mail/logo.png" width="127" height="102" alt="Enerline" style="display:block; border:0" />
+                        </a>
+                    </td>
+                    <td>
+                        <div style="height:18px"></div>
+                    </td>
+                    <td width="25">
+                        <div style="height:18px"></div>
+                    </td>
+                </tr>
+                <tr>
+                    <td width="25">
+                        <div style="height:54px"></div>
+                    </td>
+                    <td align="center" valign="middle">
+                        <span style="display:block; font-size:14px; font-weight:bold; color:#010101; line-height:1.5">{{ t('app', 'Уважаемый') }} {{ user.name }}!</span>
+                        <span style="display:block; font-size:14px; font-weight:bold; color:#010101; line-height:1.5">{{ t('app', 'Спасибо за регистрацию в нашем магазине') }}.</span>
+                    </td>
+                    <td width="25">
+                        <div style="height:54px"></div>
+                    </td>
+                </tr>
+                <tr>
+                    <td width="25">
+                        <div style="height:10px"></div>
+                    </td>
+                    <td>
+                        <div style="height:10px"></div>
+                    </td>
+                    <td width="25">
+                        <div style="height:10px"></div>
+                    </td>
+                </tr>
+                <tr>
+                    <td width="25" style="background:#ffa403">
+                        <div style="height:10px; background:#ffa403"></div>
+                    </td>
+                    <td style="background:#ffa403">
+                        <div style="height:10px; background:#ffa403"></div>
+                    </td>
+                    <td width="25" style="background:#ffa403">
+                        <div style="height:10px; background:#ffa403"></div>
+                    </td>
+                </tr>
+                <tr>
+                    <td width="25">
+                        <div style="height:10px"></div>
+                    </td>
+                    <td>
+                        <div style="height:10px"></div>
+                    </td>
+                    <td width="25">
+                        <div style="height:10px"></div>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="4">
+                        <div style="height:18px"></div>
+                    </td>
+                </tr>
+            </table>
+            <!--/letter header end-->
+        </td>
+    </tr>
+
+    <tr>
+        <td align="center">
+            <!--letter body start-->
+            <table border="0" cellpadding="0" cellspacing="0" width="100%" bgcolor="#ffffff" style="border-collapse: collapse; max-width:600px;">
+                <tr>
+                    <td width="40"></td>
+                    <td>
+                        <div style="font-size:14px; line-height:1.5; color:#242424;">
+                            {{ t('app', 'Имя') }}: {{ user.name }}
+                            <br />
+                            Телефон: {{ user.phone }}
+                            <br />
+                            Email: {{ user.email }}
+                        </div>
+                    </td>
+                    <td width="40"></td>
+                </tr>
+                <tr>
+                    <td colspan="3">
+                        <div style="height:18px"></div>
+                    </td>
+                </tr>
+                <tr>
+                    <td width="40"></td>
+                    <td>
+                        <div style="font-size:14px; line-height:1.5; color:#242424;">
+                            {{ t('app', 'С уважением, интернет-магазин') }}
+                            <a href="#" style="color: #242424 !important; font-size:14px; font-weight:bold; outline:0; text-decoration:none !important; text-transform:uppercase" target="_blank">
+                                <span style="color:#242424">Enerline!</span>
+                            </a>
+                        </div>
+                    </td>
+                    <td width="40"></td>
+                </tr>
+                <tr>
+                    <td colspan="3">
+                        <div style="height:25px"></div>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="3" style="background:#242424">
+                        <div style="height:5px; background:#242424"></div>
+                    </td>
+                </tr>
+            </table>
+            <!--/letter body end-->
+        </td>
+    </tr>
+    <tr>
+        <td align="center">
+            <!--letter footer start-->
+            <table border="0" cellpadding="0" cellspacing="0" width="100%" bgcolor="#ffffff" style="border-collapse: collapse; max-width:600px;">
+                <tr>
+                    <td colspan="8">
+                        <div style="height:13px"></div>
+                    </td>
+                </tr>
+                <tr>
+                    <td width="25">
+                        <div style="height:36px"></div>
+                    </td>
+                    <td width="20" valign="top" align="center">
+                        <img src="{{ root }}images/mail/phone.png" width="11" height="13" alt="Телефон" style="display:block; border: 0; margin-top:2px" />
+                    </td>
+                    <td width="175" valign="top">
+                        <div style="padding-left:5px; font-size:11px; line-height:1.5; color:#242424; text-align:left">
+                            <a href="tel:+380443613993" style="color: #242424 !important; font-size:11px; outline:0; text-decoration:none !important">
+                                <span style="color:#242424; white-space:nowrap">(044) 361-39-93</span>
+                            </a>
+                            <br />
+                            <a href="tel:+380950963306" style="color: #242424 !important; font-size:11px; outline:0; text-decoration:none !important">
+                                <span style="color:#242424; white-space:nowrap">(095) 096-33-06</span>
+                            </a>
+                        </div>
+                    </td>
+                    <td width="20" valign="top" align="center">
+                        <img src="{{ root }}images/mail/mail.png" width="15" height="11" alt="Email" style="display:block; border: 0; margin-top:2px" />
+                    </td>
+                    <td width="175" valign="top">
+                        <div style="padding-left:5px; font-size:11px; line-height:1.5; color:#242424; text-align:left">
+                            <a href="mailto:info@enerline.com.ua" style="color: #242424 !important; font-size:11px; outline:0; text-decoration:none !important">
+                                <span style="color:#242424">info@enerline.com.ua</span>
+                            </a>
+                        </div>
+                    </td>
+                    <td width="20" valign="top" align="center">
+                        <img src="{{ root }}images/mail/time.png" width="14" height="14" alt="Время работы" style="display:block; border: 0" />
+                    </td>
+                    <td width="140" valign="top">
+                        <div style="padding-left:5px; font-size:11px; line-height:1.5; color:#242424; text-align:left">
+                            <span style="white-space:nowrap">Пн. - Пт.: с 10:00 - 17:00</span>
+                            <br />
+                            <span style="white-space:nowrap">Сб. - Вс.: {{ t('app', 'выходной') }}</span>
+                        </div>
+                    </td>
+                    <td width="25">
+                        <div style="height:36px"></div>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="8">
+                        <div style="height:18px"></div>
+                    </td>
+                </tr>
+            </table>
+            <!--/letter footer end-->
+        </td>
+    </tr>
+</table>
+</body>
+</html>
