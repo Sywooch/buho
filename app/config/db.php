@@ -2,9 +2,9 @@
 
 return [
     'class' => 'yii\db\Connection',
-    'dsn' => 'mysql:host=forcecrm.mysql.ukraine.com.ua;dbname=forcecrm_t15',
-    'username' => 'forcecrm_t15',
-    'password' => 'e6f25lgc',
+    'dsn' => 'mysql:host=localhost;dbname=buko',
+    'username' => 'root',
+    'password' => '',
     'charset' => 'utf8',
 	'enableSchemaCache' => false,
 	'schemaCacheDuration' => 3600,

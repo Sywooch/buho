@@ -14,7 +14,7 @@ return [
     'interactive' => true,
     'sourcePath' => realpath(__DIR__.'/../'),
     'messagePath' => __DIR__,
-    'languages' => ['ru-RU', 'uk-UA'],
+    'languages' => ['ru-RU', 'uk-UA', 'en-US'],
     'translator' => 'Yii::t',
     'sort' => true,
     'overwrite' => true,

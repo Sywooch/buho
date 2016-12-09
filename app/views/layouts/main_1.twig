@@ -1,0 +1,211 @@
+{{ use('app/assets/AppAsset') }}
+{{ register_app_asset(this) }}
+{{ this.beginPage }}
+<!DOCTYPE html>
+<html lang="{{ app.language }}">
+<head>
+    <meta charset="{{ app.charset }}">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    {{ html.csrfMetaTags | raw }}
+    <title>{{ html.encode(this.title) }}</title>
+    <meta name="description" content="{{ this.description }}">
+    {{  this.head  }}
+</head>
+<body  class="page">
+{{ this.beginBody }}
+<div class="wrapper pushmenu-push">
+    <div class="topbox">
+        <nav class="pushmenu pushmenu-left">
+            <ul class="clearfix">
+                {% for page in this.params.menu_pages %}
+                    <li class="{% if page.url == this.params.current_url %} active {% endif %}">
+                        <a href="{{ page.url }}">{{ page.info.mname }}</a>
+                    </li>
+                {% endfor %}
+            </ul>
+
+
+            <ul class="clearfix">
+                {% for category in this.params.parent_categories %}
+                    <li>
+                        <a href="{{ category.url }}" class="{% if page.url == this.params.current_url %} active {% endif %}">{{ category.info.name }}</a>
+                        <ul>
+                            {% for sub_category in category.childs %}
+                                <li>
+                                    <a href="{{ sub_category.url }}">{{ sub_category.info.name }}</a>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </li>
+                {% endfor %}
+            </ul>
+        </nav>
+
+        <div class="topline">
+            <div class="clearfix container">
+                <div class="left mobile-navi-button"><span class="mmenu-button hide"></span></div>
+                <div class="left top-menu">
+                    <ul class="clearfix">
+                        {% for page in this.params.menu_pages %}
+                            <li class="{% if page.url == this.params.current_url %} active {% endif %}">
+                                <a href="{{ page.url }}">{{ page.info.mname }}</a>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                <div class="right langs">
+                    <select onchange="document.location.href=$(this).val()">
+                        {% for l in this.params.langs %}
+                            <option {% if l == this.params.lang %} selected="selected" {% endif %} value="{{ l.langUrl }}">{{ l.name }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="right login-box">
+                    {% if this.params.user.id > 0 %}
+                    <div class="login-btn">{{ this.params.user.name }}</div>
+                    <div class="login-popup head-login-form">
+                        <ul>
+                            {% for item in this.params.user.menu %}
+                            <li class="crt"><a href="{{ item.url }}">{{ item.name }}</a></li>
+                            {% endfor %}
+                            <li class="crt"><button class="btn gui-request" data-module="user" data-data="method=logout">{{ t('app', 'Выход') }}</button></li>
+                        </ul>
+                    </div>
+                    {% else %}
+                    <div class="login-btn">{{ t('app', 'Личный кабинет') }}</div>
+                    <div class="login-popup head-login-form">
+                        <ul>
+                            <li class="crt"><input type="text" name="email" value="" placeholder="E-mail" /></li>
+                            <li class="crt"><input type="password" name="password" value="" placeholder="Пароль" /></li>
+                            <li class="crt"><a class="forgetpass-btn gui-request" data-module="user" data-data="method=restore_window">{{ t('app', 'Забыли пароль?') }}</a></li>
+                            <li class="crt gui-message"></li>
+                            <li class="crt"><button class="btn gui-request" data-module="user" data-data="method=login" data-form=".head-login-form">{{ t('app', 'Войти') }}</button></li>
+                            <li class="crt"><a class="registration-btn gui-request" data-module="user" data-data="method=registration_window">{{ t('app', 'Зарегистрироваться') }}</a></li>
+                        </ul>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+
+        <div class="header">
+            <div class="container clearfix">
+                <a href="{{ this.params.home_url }}" class="left logo"><img src="/images/logo.png" alt="" /></a>
+
+                <div class="left header-contacts">
+                    <div class="tels">
+                        {{ this.params.tel1 }}<br />
+                        {{ this.params.tel2 }}<br />
+                        <a class="callback gui-request" data-module="user" data-data="method=callback_window">{{ t('app', 'Перезвоните мне') }}</a>
+                    </div>
+                </div>
+
+                <div class="left header-contacts header-contacts2">
+                    <div class="times">
+                        Пн. - Пт.: с 10.00 - 17.00<br />
+                        Сб. - Вс.: выходной
+                    </div>
+                    <div class="email"><a href="mailto:info@enerline.com.ua" target="_blank">info@enerline.com.ua</a></div>
+                </div>
+
+                <div class="left search-box">
+                    <form action="{{ this.params.home_url }}search.html" method="get" class="clearfix">
+                        <input type="text" value="{{ this.params.search }}" name="s" placeholder="{{ t('app', 'Поиск') }}" />
+                        <button type="submit"></button>
+                    </form>
+                </div>
+
+                <div class="left compare-box {% if this.params.compare.count <= 0 %}empty{% endif %}">
+                    <a href="{{ this.params.compare.url }}">
+                        <span class="compare-cont">{{ this.params.compare.count }}</span>
+                        {{ t('app', 'Сравнение') }}
+                    </a>
+                </div>
+
+                <div class="right cart">
+                    <div class="tb">
+                        <a href="{{ this.params.cart.url }}" class="cart-box td {% if this.params.cart.count == 0 %} empty {% endif %}">
+                            <span class="full cart-items"><i class="cart-count">{{ this.params.cart.count }}</i> {{ t('app', 'товаров') }}</span>
+                            <span class="full cart-price"><i class="cart-cost">{{ this.params.cart.cost }}</i> грн.</span>
+                            <span class="empty cart-items">{{ t('app', 'Нет товаров') }}</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="menu">
+            <div class="container">
+                <ul class="clearfix">
+                    {% for category in this.params.parent_categories %}
+                        <li class="{% if page.url == this.params.current_url %} active {% endif %} {% if loop.last %} li-last {% endif %}">
+                            <a href="{{ category.url }}">{{ category.info.name }}</a>
+                            {% if category.childs %}
+                            <ul>
+                                {% for sub_category in category.childs %}
+                                    <li>
+                                        <a href="{{ sub_category.url }}">{{ sub_category.info.name }}</a>
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                            {% endif %}
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+
+        {{ content | raw}}
+
+    </div>
+
+    <div class="bottombox">
+        <div class="footer">
+            <div class="container">
+                <div class="up-btn"><a href="#"></a></div>
+                <div class="footer-text-box clearfix">
+                    <div class="left footer-logo"><img src="/images/footer-logo.png" alt="" /></div>
+                    <div class="right footer-text">
+                        <p>Text</p>
+                    </div>
+                </div>
+                <div class="footer-bottom clearfix">
+                    <div class="left footer-menu">
+                        <ul class="clearfix">
+                            {% for page in this.params.menu_pages %}
+                                <li class="{% if page.url == this.params.current_url %} active {% endif %}">
+                                    <a href="{{ page.url }}">{{ page.info.mname }}</a>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+
+                    <div class="left tels">
+                        {{ this.params.tel1 }}<br />
+                        {{ this.params.tel2 }}<br />
+                        <a class="btn3 callback-ft gui-request" data-module="user" data-data="method=callback_window">{{ t('app', 'Перезвоните мне') }}</a>
+                    </div>
+
+                    <div class="right socials">
+                        <span>{{ t('app', 'Мы в соцсетях') }}:</span>
+                        <ul>
+                            <li class="s-fb"><a href="{{ this.params.fb_ref }}"></a></li>
+                            <li class="s-tw"><a href="#"></a></li>
+                            <li class="s-gp"><a href="{{ this.params.gp_ref }}"></a></li>
+                            <li class="s-pi"><a href="#"></a></li>
+                            <li class="s-yb"><a href="{{ this.params.yt_ref }}"></a></li>
+                            <li class="s-vk"><a href="{{ this.params.vk_ref }}"></a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="copyright">
+            <div class="container">2016 © Emerline.com.ua. {{ t('app', 'Все права защищены') }}.</div>
+        </div>
+    </div>
+</div>
+{{ this.endBody }}
+</body>
+</html>
+{{ this.endPage }}

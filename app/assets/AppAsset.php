@@ -17,25 +17,31 @@ class AppAsset extends AssetBundle
 {
     public $basePath = '@webroot';
     public $baseUrl = '@web';
-    public $css = [
-        'css/bootstrap.css',
-		'css/magnific-popup.css',
-		'css/styles.css',
-		'css/jquery.bxslider.css',
-		'css/responsive.css',
-    ];
     public $js = [
 		'js/jquery-1.8.2.min.js',
-		'js/jquery-ui.js',
-		'js/jquery.magnific-popup.min.js',
-		'js/jquery.bxslider.min.js',
-		'js/jquery.maskedinput.min.js',
-		'js/SmoothScroll.js',
-		'js/gui.min.js',
-		'js/custom.js',
+		'js/jquery_wp.js',
+		'js/jquery-migrate.min.js',
+		'js/fotorama.js',
+		'js/fotorama-wp.js',
+		'js/core.min.js',
+		'js/widget.min.js',
+		'js/mouse.min.js',
+                'js/slider.min.js',
+                'js/sortable.min.js',
+                'js/wp-embed.min.js',
+                'js/custom.js',
     ];
+    public $css = [
+                'css/styles.css',
+		'css/fotorama.css',		
+		'css/slick.css',
+		'css/columns.min.css',
+                'css/shortcodes.css',
+                'css/page_templates.css',
+                'css/fotorama-lib.css',
+    ];      
     public $depends = [
-        'yii\web\YiiAsset',
-        'yii\bootstrap\BootstrapAsset',
+       # 'yii\web\YiiAsset',
+       # 'yii\bootstrap\BootstrapAsset',
     ];
 }
