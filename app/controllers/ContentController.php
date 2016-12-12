@@ -21,6 +21,7 @@ class ContentController extends BaseController
     {
 		$data = [];
         $data['banners'] = Banners::find()->orderBy('sort')->active()->all();
+        #$data['banners'] = Banners::find()->orderBy('sort')->active()->all();
 		$data['products'] = CatalogProducts::find()->active()->base()->recom()->andWhere('available>0')->orderBy('RAND()')->limit(9)->all();
 		if ($data['products'])
 		{

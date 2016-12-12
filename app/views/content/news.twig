@@ -1,6 +1,6 @@
 {{ set(this, 'title', page.info.title ? page.info.title : page.info.name ) }}
 {{ set(this, 'description', page.info.description ? page.info.description : page.info.name) }}
-
+{{ use('app/widgets/SLinkPager') }}
 <div class="breadcrumbs">
     <div class="container"><a href="{{ this.params.home_url }}">{{ t('app', 'Главная') }}</a> <span class="breadcrumbs-arrow">|</span> <span class="current">{{ page.info.name }}</span></div>
 </div>
