@@ -195,15 +195,14 @@ class DynamicField
 };
 
 //File operations class
-class AdminFile
-{
+class AdminFile {
 	public $crtDate;
 	public $usersFileName;
 	public $tmpFileName;
 	public $format;
 	public $newName;
 	
-	function AdminFile($inDate,$FILES,$fieldname='upfile')
+	function __construct($inDate,$FILES,$fieldname='upfile')
 	{
 		$this->crtDate=$inDate;
 		$this->usersFileName=strtolower($FILES[$fieldname]['name']);

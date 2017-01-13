@@ -1,7 +1,34 @@
 {{ set(this, 'title', page.info.title ? page.info.title : page.info.name ) }}
 {{ set(this, 'description', page.info.description ? page.info.description : page.info.name) }}
 
-<div class="breadcrumbs">
+
+
+
+     <div class="content_index">
+<span class="B_crumbBox"><span class="B_firstCrumb"><span itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb"><a itemprop="url" class="B_homeCrumb" href="/" title="Отель в Буковеле «Вилла Елена»"><span itemprop="title">Главная</span></a></span></span> » <span class="B_lastCrumb"><span class="B_currentCrumb">Контакты</span></span></span>
+           <h1 style="text-align: center;">{{ page.info.h1? page.info.h1: page.info.name }}</h1>
+<div class="frame" itemscope="" itemtype="http://schema.org/Organization">
+
+                    	{{ page.info.text | raw }}
+                     
+
+<div class="clear_both"></div>
+<iframe width="960" height="350" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2651.264938105601!2d24.423272315520514!3d48.35543254394157!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNDjCsDIxJzE5LjUiTiAyNMKwMjUnMzEuNyJF!5e0!3m2!1sru!2sua!4v1471596954481" allowfullscreen=""></iframe>
+
+					
+
+<br><small><a href="https://maps.google.com.ua/maps?f=q&amp;source=embed&amp;hl=ru&amp;geocode=&amp;q=48.3558+24.42661&amp;aq=&amp;sll=48.382803,31.17461&amp;sspn=8.524024,21.643066&amp;ie=UTF8&amp;ll=48.3558,24.42661&amp;spn=0.033308,0.084543&amp;t=m&amp;z=14" style="color:#0000FF;text-align:left">Просмотреть увеличенную карту</a></small>	
+     </div>
+</div>
+<div class="clear_both"></div>		 
+    
+ 
+
+
+
+
+
+<!--<div class="breadcrumbs">
     <div class="container"><a href="{{ this.params.home_url }}">{{ t('app', 'Главная') }}</a> <span class="breadcrumbs-arrow">|</span> <span class="current">{{ page.info.name }}</span></div>
 </div>
 
@@ -40,4 +67,4 @@
     <div class="container">
         <iframe src="https://www.google.com/maps/embed?hl=ru&pb=!1m18!1m12!1m3!1d2543.567690541382!2d30.624861715295186!3d50.393256999366024!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x40d4c5b4cbae5e49%3A0x612c918f44100735!2z0LLRg9C70LjRhtGPINCR0L7RgNC40YHQsCDQk9C80LjRgNGWLCA2LCDQmtC40ZfQsiwgMDIwMDA!5e0!3m2!1sru!2sua!4v1470643951208" width="600" height="450" frameborder="0" style="border:0" allowfullscreen></iframe>
     </div>
-</div>
+</div> -->

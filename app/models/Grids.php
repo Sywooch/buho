@@ -58,7 +58,7 @@ class Grids extends \yii\db\ActiveRecord
      */
     public function getGridsInfos()
     {
-        return $this->hasMany(BannersInfo::className(), ['record_id' => 'id']);
+        return $this->hasMany(GridsInfo::className(), ['record_id' => 'id']);
     }
 
     /**
@@ -67,12 +67,12 @@ class Grids extends \yii\db\ActiveRecord
      */
     public static function find()
     {
-        return new \app\models\Queries\Banners(get_called_class());
+        return new \app\models\Queries\Grids(get_called_class());
     }
     //связь с многоязычной таблицей
     public function getInfo()
     {
-        return $this->hasOne(BannersInfo::className(), ['record_id'=>'id'])->where([BannersInfo::tableName().'.lang' => Lang::getCurrentId()]);
+        return $this->hasOne(GridsInfo::className(), ['record_id'=>'id'])->where([GridsInfo::tableName().'.lang' => Lang::getCurrentId()]);
     }
     //большая картинка
     public function getBImg(){

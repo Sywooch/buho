@@ -9,6 +9,8 @@ use Yii;
 use yii\web\HttpException;
 use app\models\Pages;
 use app\models\Banners;
+use app\models\Grids;
+use app\models\GridsInfo;
 use app\models\News;
 use app\components\BaseController;
 use yii\data\Pagination;
@@ -20,9 +22,13 @@ class ContentController extends BaseController
     public function actionIndex()
     {
 		$data = [];
-        $data['banners'] = Banners::find()->orderBy('sort')->active()->all();
-        #$data['banners'] = Banners::find()->orderBy('sort')->active()->all();
-		$data['products'] = CatalogProducts::find()->active()->base()->recom()->andWhere('available>0')->orderBy('RAND()')->limit(9)->all();
+              #  $data['grids'] = Grids::find()->orderBy('sort')->asArray()->active()->all();
+             #   $data['grids_info'] = GridsInfo::find()->asArray()->all();
+                    # view($data['grids']);
+                    # view($data['grids_info']);
+
+       # $data['banners'] = Banners::find()->orderBy('sort')->active()->all();
+	/*	$data['products'] = CatalogProducts::find()->active()->base()->recom()->andWhere('available>0')->orderBy('RAND()')->limit(9)->all();
 		if ($data['products'])
 		{
 			//	Список ID отображаемых товаров
@@ -35,9 +41,9 @@ class ContentController extends BaseController
 			$data['products_params'] = ExtraParamsCache::getProductParams($ids);
 			//	Сроки доставки для отображаемых товаров
 			$data['products_delivery'] = ExtraParamsCache::getProductDelivery($ids);
-		}
-		$data['news'] = News::find()->active()->orderBy('sort DESC')->limit(10)->all();
-
+		}*/
+		#$data['news'] = News::find()->active()->orderBy('sort DESC')->limit(10)->all();
+               # view($data);
 		return $this->render('index.twig', $data);
     }
 
@@ -68,7 +74,7 @@ class ContentController extends BaseController
     }
 
     public function actionNews($type = 'news')
-	{
+	{        
         $page = Pages::find()->byAlias('news')->one();
         $query = News::find()->active()->andWhere(['is_article' => (int)($type == 'article')])->orderBy('pub_date DESC, sort');
         $countQuery = clone $query;

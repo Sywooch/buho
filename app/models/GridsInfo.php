@@ -32,9 +32,9 @@ class GridsInfo extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['record_id', 'lang', 'title_top', 'title_mid', 'title_bot', 'href_url'], 'required'],
+            [['record_id', 'href', 'title', 'photo', 'lang'], 'required'],
             [['record_id', 'lang'], 'integer'],
-            [['title_top', 'title_mid', 'title_bot', 'href_url'], 'string', 'max' => 250],
+            [['href', 'title', 'photo'], 'string', 'max' => 250],
             [['record_id'], 'exist', 'skipOnError' => true, 'targetClass' => Grids::className(), 'targetAttribute' => ['record_id' => 'id']],
         ];
     }
@@ -45,12 +45,11 @@ class GridsInfo extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'record_id' => Yii::t('app', 'Record ID'),
-            'lang' => Yii::t('app', 'Lang'),
-            'title_top' => Yii::t('app', 'Заголовок (верx)'),
-            'title_mid' => Yii::t('app', 'Заголовок (середина)'),
-            'title_bot' => Yii::t('app', 'Заголовок (низ)'),
+            'record_id' => Yii::t('app', 'Record ID'),    
             'href_url' => Yii::t('app', 'Url'),
+            'title' => Yii::t('app', 'Заголовок'),
+            'photo' => Yii::t('app', 'photo'),
+            'lang' => Yii::t('app', 'Lang'),
         ];
     }
 
@@ -59,7 +58,7 @@ class GridsInfo extends \yii\db\ActiveRecord
      */
     public function getRecord()
     {
-        return $this->hasOne(Banners::className(), ['id' => 'record_id']);
+        return $this->hasOne(Grids::className(), ['id' => 'record_id']);
     }
 
     /**
@@ -68,6 +67,6 @@ class GridsInfo extends \yii\db\ActiveRecord
      */
     public static function find()
     {
-        return new \app\models\Queries\BannersInfo(get_called_class());
+        return new \app\models\Queries\GridsInfo(get_called_class());
     }
 }

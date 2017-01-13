@@ -2,10 +2,10 @@
 ini_set('display_errors', '1');
 error_reporting(E_ALL);
 //DB
-$DB_HOST = 'forcecrm.mysql.ukraine.com.ua';
-$DB_NAME = 'forcecrm_t15';
-$DB_USER = 'forcecrm_t15'; 
-$DB_PASSWORD = 'e6f25lgc'; 
+$DB_HOST = 'localhost';
+$DB_NAME = 'buko';
+$DB_USER = 'root'; 
+$DB_PASSWORD = ''; 
 
            
 //Admin
@@ -13,7 +13,7 @@ $ALANG = 'ru';
 $PROJECT_NAME = "Enerline";
 $ADMIN_SESSION_AUTH = 1;
 
-$LANGS = array('1'=>'Рус','2'=>'Укр',);
+$LANGS = array('1'=>'Рус','2'=>'Укр', '3'=>'En');
 
 //Tables
 $TABLE_ITEMS="catalog_products";
